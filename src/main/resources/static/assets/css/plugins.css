@@ -1,0 +1,30 @@
+@import url('main.css');
+@import url('../../plugins/perfect-scrollbar/perfect-scrollbar.css');
+@import url('structure.css');
+/*
+    Importing highlight.js CSS code 
+
+    Just for demo purpose only
+	
+	@Note:-  monokai-sublime.css stylesheet is for highliting the code;
+
+*/
+@import '../../plugins/highlight/styles/monokai-sublime.css';
+
+ul.basesection{
+	padding-left: 5px;
+}
+ul.basesection li{
+	list-style-type: none;
+}
+ul.basesection li img{
+	margin-right: 5px;
+	width: 27px;
+}
+ul.basesection li h6{
+	display: inline-block;
+	font-size: 14px;
+}
+ul.basesection li a{
+	cursor:pointer;
+}

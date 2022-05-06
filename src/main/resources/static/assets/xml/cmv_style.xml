@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<StyledLayerDescriptor version="1.0.0"
+  xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd"
+  xmlns="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc"
+  xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <NamedLayer>
+    <Name>CDLTP_CMV_STYLE</Name>
+    <UserStyle>
+      <Title>A dark orange polygon style</Title>
+      <FeatureTypeStyle>
+        <Rule>
+
+          <PolygonSymbolizer>
+            <Fill>
+              <CssParameter name="fill">#9999ff
+              </CssParameter>
+              <CssParameter name="fill-opacity">0</CssParameter>
+            </Fill>
+            <Stroke>
+              <CssParameter name="stroke">#f15515</CssParameter>
+              <CssParameter name="stroke-width">2</CssParameter>
+            </Stroke>
+          </PolygonSymbolizer>
+        </Rule>
+        <Rule>  
+          <TextSymbolizer>
+            <Label>
+              <ogc:PropertyName>fb_name</ogc:PropertyName>
+            </Label>
+            
+            <Font>
+              <CssParameter name="font-family">Ariel</CssParameter>
+              <CssParameter name="font-style">Normal</CssParameter>
+              <CssParameter name="font-size">12</CssParameter>
+              <CssParameter name="font-weight">bold</CssParameter>
+            </Font>
+            <LabelPlacement>
+              <PointPlacement>
+                <AnchorPoint>
+                  <AnchorPointX>0.5</AnchorPointX>
+                  <AnchorPointY>0.5</AnchorPointY>
+                </AnchorPoint>
+              </PointPlacement>
+            </LabelPlacement>
+            <Fill>
+           <CssParameter name="fill">#000000</CssParameter>
+         </Fill>
+          </TextSymbolizer>
+        </Rule>
+        
+
+      </FeatureTypeStyle>
+    </UserStyle>
+  </NamedLayer>
+</StyledLayerDescriptor>
