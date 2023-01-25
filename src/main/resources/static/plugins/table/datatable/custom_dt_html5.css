@@ -1,0 +1,16 @@
+ .dt-buttons .dt-button {
+    /* color: #fff !important;
+    background-color: #1b55e2!important;
+    border-color: #1b55e2; */
+    margin-top: 13px;
+    margin-bottom: 13px;
+    margin-right: 0px;
+    padding: 5px 10px;
+} 
+.dt-buttons span {
+    font-family: 'Nunito', sans-serif;
+    margin-left: 7px;
+}
+.dt-buttons {
+    margin: 0 0 0 10px;
+}
