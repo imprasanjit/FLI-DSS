@@ -1264,17 +1264,19 @@
 
 								</div>
 
-								<div class="col-md-9">
+								<div class="col-md-9" style="border-left:1px solid #e2e2e2" id="printId">
 									<div id="map" class="fixHeightLeft fixenlarge panel">
-										<div class="map-tool-icon">
-											<!-- <a href="javascript:void(0)" data-toggle="collapse" title="Toggle fullscreen" class="bs-tooltip" id="mapFullscreen" onclick="openFullscreen();"><img src="/assets/img/icon-zoom-to-extent.png"></span></a> -->
-											<!-- <a href="#" class="bs-tooltip" title="Zoom in" id="ZoomIN"><img src="/assets/img/icon-zoom-in.png"></span></a> 
-									<a href="#" class="bs-tooltip" title="Zoom out" id="ZoomOut"><img src="/assets/img/icon-zoom-out.png"></span></a> -->
-											<!-- <a href="#" class="bs-tooltip" title="Back" onclick="back();"><img src="/assets/img/icon-back.png"></span></a> -->
+										<div class="map-tool-icon">								
+										     <!-- <button id="export-pdf" onclick="printpage('printId')" class="btn btn-sm btn-warning"><i class="fa fa-print"></i></button> -->
+											<!-- <a href="javascript:void(0)" data-toggle="collapse" title="Toggle fullscreen" class="bs-tooltip" id="mapFullscreen" onclick="openFullscreen();"><img src="/assets/img/icon-zoom-to-extent.png"></span></a>
+											<a href="#" class="bs-tooltip" title="Zoom in" id="ZoomIN"><img src="/assets/img/icon-zoom-in.png"></span></a> 
+									             <a href="#" class="bs-tooltip" title="Zoom out" id="ZoomOut"><img src="/assets/img/icon-zoom-out.png"></span></a>
+											<a href="#" class="bs-tooltip" title="Back" onclick="back();"><img src="/assets/img/icon-back.png"></span></a> -->
 										</div>
 									</div>
+									<img alt="Compass" src="/assets/img/compass.png" style="position:absolute;left:0;top:0">
 								</div>
-
+								<div id='emptyDiv'></div>
 							</div>
 						</div>
 					</div>
@@ -1977,6 +1979,7 @@
 																//console.log(caData);
 																$.each(caData, function (key, item) {	
 																	//alert("enter")	
+																	//console.log(item)
 																	sl++;
 																	tmpCaf = [sl, item['properties']['tahasil'], item['properties']['ric'], item['properties']['village'], item['properties']['khata_no']
 																		, item['properties']['plot_no'], item['properties']['area_ac'], item['properties']['carea_ac'], item['properties']['slope_deg'],
@@ -3947,4 +3950,35 @@
 					}
 				}
 
+			</script>
+			
+			<script>			
+			 /* function printpage(param) {
+				 alert(param)
+				 //const exportButton = document.getElementById('export-pdf');
+			    //var printPage = document.getElementById(param).innerHTML;
+				 var backup = document.body.innerHTML;
+				 alert(backup)
+				 var printPage = document.getElementById(param).innerHTML;
+				 alert(printPage)
+				 document.body.innerHTML=printPage;
+                 window.print();
+                 document.body.innerHTML=backup;
+        } */
+        function printpage() 
+        {
+          //alert('ygy')
+          var divToPrint=document.getElementById('map');
+          console.log(divToPrint.innerHTML)
+          var newWin=window.open('','Print-Window');
+
+          newWin.document.open();
+
+          newWin.document.write('<html><body onload="window.print()">'+divToPrint.innerHTML+'</body></html>');
+
+          newWin.document.close();
+
+          setTimeout(function(){newWin.close();},10);
+
+        }
 			</script>

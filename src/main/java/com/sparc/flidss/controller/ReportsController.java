@@ -517,6 +517,8 @@ public class ReportsController {
 		if (distId != null && Integer.parseInt(distId.toString()) > 0) {
 			dividsByDist = distDivLinkRepo.findByDistId(distId).stream().map(m -> m.getDivisionMaster().getIntId())
 					.collect(Collectors.toList());
+			/*dividsByDivId = distDivLinkRepo.getDivisionMaster(divId).stream().map(m -> m.getDivisionMaster().getIntId())
+					.collect(Collectors.toList());*/
 		} else {
 			if (divId > 0) {
 				dividsByDist.add(divId);

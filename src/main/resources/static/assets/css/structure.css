@@ -1357,8 +1357,8 @@ code { color: #e7515a; }
 }
 .map-tool-icon{
 	position: absolute;
-	right: 5px;
-	top: 7px;
+	right: 12px;
+	top: 85px;
 	z-index: 9;
 }
 .map-tool-icon a{

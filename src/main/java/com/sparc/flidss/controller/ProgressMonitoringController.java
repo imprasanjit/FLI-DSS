@@ -1,7 +1,11 @@
 package com.sparc.flidss.controller;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -18,6 +22,7 @@ import com.sparc.flidss.model.common.DivisionMaster;
 import com.sparc.flidss.model.common.ForestLandTypeMaster;
 import com.sparc.flidss.model.common.RangeMaster;
 import com.sparc.flidss.model.common.TehsilMaster;
+import com.sparc.flidss.repository.common.DistrictDivisionLinkMasterRepository;
 import com.sparc.flidss.security.service.SecurityUtility;
 import com.sparc.flidss.service.DBService;
 import com.sparc.flidss.service.ForestLandDetailsService;
@@ -38,8 +43,14 @@ public class ProgressMonitoringController {
 	@Autowired
 	DBService dbservice;
 	
-	@Autowired ProgressMonitoringService pms;
+	@Autowired 
+	ProgressMonitoringService pms;
 	
+	@Autowired
+	DistrictDivisionLinkMasterRepository distDivLinkRepo;
+	
+	@Autowired
+	UtilityMasterService utility;
 	
 	@Async
 	@RequestMapping("/nfbSummary")
@@ -107,7 +118,7 @@ public class ProgressMonitoringController {
 	 */
 	@Async
 	@RequestMapping("/frjvcDetails")
-	public String frjvcDetails(Model model) {
+	public String frjvcDetails(Model model,HttpSession session) {
 		/*
 		 * String url = securityUtility.checkAuthority(4, 5); try { if
 		 * (url.equalsIgnoreCase("dss/customQuery")) { url =
@@ -115,8 +126,48 @@ public class ProgressMonitoringController {
 		 */
 				try {
 					List<ForestLandTypeMaster> fLandType = service.GetForestLandType();
-					List<DistrictMaster> distList = service.GetDistrictList();
-					List<DivisionMaster> divList = service.GetDivisionList().stream().filter(f->f.getPhaseMaster().getIntPhase()==1).collect(Collectors.toList());
+					//List<DistrictMaster> distList = service.GetDistrictList();
+					//List<DivisionMaster> divList = service.GetDivisionList().stream().filter(f->f.getPhaseMaster().getIntPhase()==1).collect(Collectors.toList());
+					Integer distId = session.getAttribute("distID")!=null?Integer.parseInt(session.getAttribute("distID").toString()):0;
+					Integer divId = session.getAttribute("divID")!=null?Integer.parseInt(session.getAttribute("divID").toString()):0;
+					
+					List<Integer> dividsByDivid = new ArrayList<Integer>();
+
+					if (distId != null && Integer.parseInt(distId.toString()) > 0) {
+						/*dividsByDist = distDivLinkRepo.findByDistId(distId).stream()
+								.map(m -> m.getDivisionMaster().getIntId()).collect(Collectors.toList());*/
+						dividsByDivid = distDivLinkRepo.getDivisionMaster(divId).stream()
+								.map(m -> m.getDivisionMaster().getIntId()).collect(Collectors.toList());
+					} else {
+						if (divId > 0) {
+							dividsByDivid.add(divId);
+						}
+
+					}
+					var divids = dividsByDivid;
+					List<DistrictMaster> distList = utility.GetDistrictList().stream()
+							.filter(f -> f.getIntId() == (distId > 0 ? distId : (divId > 0 ? -1 : f.getIntId())))
+							.collect(Collectors.toList());
+					distList.sort((p1, p2) -> p1.getChrvDistrictNm().compareTo(p2.getChrvDistrictNm()));
+
+	//here we have done division id wise permission after login the user will get only division dropdown accordingly divid from session
+					List<DivisionMaster> divList= new ArrayList<DivisionMaster>();
+					//for admin role
+					if(divId==0 && distId==0) {
+					 divList = utility.GetDivisionList().stream()
+							.filter(f -> f.getIntId() > 0 && (!divids.isEmpty() ? divids.contains(f.getIntId()) : true)
+									&& f.getPhaseMaster().getIntPhase() == 1 /*|| f.getPhaseMaster().getIntPhase()==2 
+											 || f.getPhaseMaster().getIntPhase()==3 
+																			   || f.getPhaseMaster().getIntPhase()==4*/ )
+							.collect(Collectors.toList());
+					divList.sort((d1, d2) -> d1.getChrvDivisionNm().compareTo(d2.getChrvDivisionNm()));
+					}
+					//for others official role
+					else {
+						 divList = utility.GetDivisionList().stream()
+								.filter(f -> f.getIntId() > 0 && (!divids.isEmpty() ? divids.contains(f.getIntId()) : true))
+								.collect(Collectors.toList());
+					}
 					//List<RangeMaster> rngList = service.GetRangeList();
 					//List<TehsilMaster> tehsList = service.GetTehsilList();
 					model.addAttribute("fLandType", fLandType);
@@ -234,15 +285,56 @@ public class ProgressMonitoringController {
 
 	@Async
 	@RequestMapping("/dgpsDetails")
-	public String dgpsDetails(Model model) {
+	public String dgpsDetails(Model model,HttpSession session) {
 		/*String url = securityUtility.checkAuthority(4, 5);
 		if (url.equalsIgnoreCase("dss/customQuery")) {
 			url = "/progressmonitoring/dgpsDetails";*/
 
 			try {
 				List<ForestLandTypeMaster> fLandType = service.GetForestLandType();
-				List<DistrictMaster> distList = service.GetDistrictList();
-				List<DivisionMaster> divList = service.GetDivisionList().stream().filter(f->f.getPhaseMaster().getIntPhase()==1).collect(Collectors.toList());;
+				/*List<DistrictMaster> distList = service.GetDistrictList();
+				List<DivisionMaster> divList = service.GetDivisionList().stream().filter(f->f.getPhaseMaster().getIntPhase()==1).collect(Collectors.toList());;*/
+				Integer distId = session.getAttribute("distID")!=null?Integer.parseInt(session.getAttribute("distID").toString()):0;
+				Integer divId = session.getAttribute("divID")!=null?Integer.parseInt(session.getAttribute("divID").toString()):0;
+				
+				List<Integer> dividsByDivid = new ArrayList<Integer>();
+
+				if (distId != null && Integer.parseInt(distId.toString()) > 0) {
+					/*dividsByDist = distDivLinkRepo.findByDistId(distId).stream()
+							.map(m -> m.getDivisionMaster().getIntId()).collect(Collectors.toList());*/
+					dividsByDivid = distDivLinkRepo.getDivisionMaster(divId).stream()
+							.map(m -> m.getDivisionMaster().getIntId()).collect(Collectors.toList());
+				} else {
+					if (divId > 0) {
+						dividsByDivid.add(divId);
+					}
+
+				}
+				var divids = dividsByDivid;
+				List<DistrictMaster> distList = utility.GetDistrictList().stream()
+						.filter(f -> f.getIntId() == (distId > 0 ? distId : (divId > 0 ? -1 : f.getIntId())))
+						.collect(Collectors.toList());
+				distList.sort((p1, p2) -> p1.getChrvDistrictNm().compareTo(p2.getChrvDistrictNm()));
+
+//here we have done division id wise permission after login the user will get only division dropdown accordingly divid from session
+				List<DivisionMaster> divList= new ArrayList<DivisionMaster>();
+				//for admin role
+				if(divId==0 && distId==0) {
+				 divList = utility.GetDivisionList().stream()
+						.filter(f -> f.getIntId() > 0 && (!divids.isEmpty() ? divids.contains(f.getIntId()) : true)
+								&& f.getPhaseMaster().getIntPhase() == 1 /*|| f.getPhaseMaster().getIntPhase()==2 
+										 || f.getPhaseMaster().getIntPhase()==3 
+																		   || f.getPhaseMaster().getIntPhase()==4*/ )
+						.collect(Collectors.toList());
+				divList.sort((d1, d2) -> d1.getChrvDivisionNm().compareTo(d2.getChrvDivisionNm()));
+				}
+				//for others official role
+				else {
+					 divList = utility.GetDivisionList().stream()
+							.filter(f -> f.getIntId() > 0 && (!divids.isEmpty() ? divids.contains(f.getIntId()) : true))
+							.collect(Collectors.toList());
+				}
+				
 				//List<RangeMaster> rngList = service.GetRangeList();
 				//List<TehsilMaster> tehsList = service.GetTehsilList();
 				model.addAttribute("fLandType", fLandType);
@@ -309,6 +401,30 @@ public class ProgressMonitoringController {
 			//throw ex;
 		}
 		return "/progressmonitoring/partialDgpsPoindDetails";
+	}
+	
+	public List<Integer> getDivIdsbyDistOrDiv(HttpSession session) {
+
+		Integer distId = session.getAttribute("distID") != null
+				? Integer.parseInt(session.getAttribute("distID").toString())
+				: 0;
+		Integer divId = session.getAttribute("divID") != null
+				? Integer.parseInt(session.getAttribute("divID").toString())
+				: 0;
+		List<Integer> dividsByDivId = new ArrayList<Integer>();
+
+		if (distId != null && Integer.parseInt(distId.toString()) > 0) {
+			/*dividsByDist = distDivLinkRepo.findByDistId(distId).stream().map(m -> m.getDivisionMaster().getIntId())
+					.collect(Collectors.toList());*/
+			dividsByDivId = distDivLinkRepo.getDivisionMaster(divId).stream().map(m -> m.getDivisionMaster().getIntId())
+					.collect(Collectors.toList());
+		} else {
+			if (divId > 0) {
+				dividsByDivId.add(divId);
+			}
+		}
+
+		return dividsByDivId;
 	}
 	
 }

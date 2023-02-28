@@ -108,12 +108,14 @@ public class DSSController {
 				List<Integer> dividsByDist = new ArrayList<Integer>();
 				
 				if(distId!=null && Integer.parseInt(distId.toString())>0) {
-					dividsByDist = distDivLinkRepo.findByDistId(distId)
-				.stream().map(m->m.getDivisionMaster().getIntId()).collect(Collectors.toList());
+					/*dividsByDivId = distDivLinkRepo.getDivisionMaster(divId)
+					.stream().map(m->m.getDivisionMaster().getIntId()).collect(Collectors.toList());*/
+					dividsByDist = distDivLinkRepo.findByDistId(distId).stream()
+							.map(m -> m.getDivisionMaster().getIntId()).collect(Collectors.toList());
 				}
 				else {
 						if(divId>0) {
-						dividsByDist.add(divId);
+							dividsByDist.add(divId);
 						}
 					
 				}
@@ -122,11 +124,15 @@ public class DSSController {
 				
 				
 				List<ForestLandTypeMaster> fLandType = utility.GetForestLandType();
+				
 				List<DistrictMaster> distList = utility.GetDistrictList().stream().filter(f->f.getIntId()==(distId>0?distId:(divId>0?-1:f.getIntId()) )).collect(Collectors.toList());
+				distList.sort((x1,x2)->x1.getChrvDistrictNm().compareTo(x2.getChrvDistrictNm()));
 				
 				List<DivisionMaster> divList = utility.GetDivisionList().stream()
-						.filter(f -> f.getIntId() > 0 && (!divids.isEmpty()? divids.contains(f.getIntId()):true) && f.getPhaseMaster().getIntId() == 1)
+						.filter(f -> f.getIntId() > 0 && (!divids.isEmpty()? divids.contains(f.getIntId()):true) && f.getPhaseMaster().getIntId() == 1
+								/*|| f.getPhaseMaster().getIntPhase()==2 || f.getPhaseMaster().getIntPhase()==3 || f.getPhaseMaster().getIntPhase()==4*/ )
 						.collect(Collectors.toList());
+				
 				List<RangeMaster> rngList = utility.GetRangeList();
 				List<TehsilMaster> tehsList = utility.GetTehsilList();
 				model.addAttribute("fLandType", fLandType);

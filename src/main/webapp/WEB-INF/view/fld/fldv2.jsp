@@ -263,7 +263,7 @@
 										<th>Tahsil</th>
 										<th>DLC(SqKm)</th>
 										<th>Revenue Forest(as per RoR)(SqKm)</th>
-										<th>Total Recorded Forest(SqKm)</th>
+										<th>Total Recorded Forest(DLC & Revenue)(SqKm)</th>
 										<th>Common Revenue Forest & DLC(SqKm)</th>
 										<th width="7%">View report</th>
 									</tr>

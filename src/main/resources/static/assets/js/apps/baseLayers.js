@@ -8,7 +8,7 @@ var baselayer=defaultLayer;
 try {
     baselayer = new ol.layer.Tile({
         source: new ol.source.OSM(),
-        visible: false,
+        visible: true, //here i have set default base layer in forest land info module as while loading page
         crossOrigin: 'anonymous'
       });
 } catch (error) {

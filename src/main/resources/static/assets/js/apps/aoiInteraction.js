@@ -365,7 +365,44 @@ function PoiAnalysis()
    var pgeom=geoJsonObj["features"][0]["geometry"];
    console.log(pgeom);
     pgeometry=JSON.stringify(pgeom);
+    
   // console.log(pgeometry);
+}
+//for POI
+function downloadPOIkml(){
+	//alert("olp")
+	var geomkml = [];
+  vectorSource1.forEachFeature( function(feature) { geomkml.push(new ol.Feature(feature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'))); } );
+   var node = new ol.format.KML({
+                        'maxDepth': 10,
+                        'extractStyles': true
+                    }).writeFeaturesNode(geomkml);
+                    var string = "";
+                    string = new XMLSerializer().serializeToString(
+                    /** @type {Node} */(node));
+                    var str = (new XMLSerializer).serializeToString(node);
+                    var blob = new Blob([str], { type: "application/vnd.google-earth.kml+xml;charset=utf-8;" });
+                    console.log(blob);
+                    saveAs(blob, "Data.kml");
+	
+}
+//for AOI
+function downloadAOIkml(){
+	//alert("olp1")
+	 var geomkmlpoly = [];
+		  polygonsource.forEachFeature( function(feature) { geomkmlpoly.push(new ol.Feature(feature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'))); } );
+	      var node = new ol.format.KML({
+                        'maxDepth': 10,
+                        'extractStyles': true
+                    }).writeFeaturesNode(geomkmlpoly);
+                    var string = "";
+                    string = new XMLSerializer().serializeToString(
+                    /** @type {Node} */(node));
+                    var str = (new XMLSerializer).serializeToString(node);
+                    var blob = new Blob([str], { type: "application/vnd.google-earth.kml+xml;charset=utf-8;" });
+                    console.log(blob);
+                    saveAs(blob, "Data.kml");
+	
 }
 //get geom for poi
 function getPOIGeom() 
@@ -417,7 +454,7 @@ function getPOIGeom()
 	        }
 	    });
    }
-//get geom for AOI 
+//get geom for drawn AOI area
 function getAOIGeom() 
 {
 		var aoigeometry=ageometry;

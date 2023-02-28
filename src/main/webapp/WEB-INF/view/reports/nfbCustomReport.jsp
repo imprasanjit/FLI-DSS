@@ -215,7 +215,7 @@
                                             <div class="media-body">
                                                 <div class="d-xl-flex d-block justify-content-between">
                                                     <div class="">
-                                                        <h6 class="">Type</h6>   
+                                                        <h6 class="">Forest Type</h6>   
                                                          <input type="hidden" value="Type">                                                      
                                                     </div>
                                                     <div>
@@ -301,7 +301,8 @@
                                             <div class="media-body">
                                                 <div class="d-xl-flex d-block justify-content-between">
                                                     <div class="">
-                                                        <h6 class="">NFA - MMVA (Ha.)</h6>   
+                                                        <!-- <h6 class="">NFA - MMVA (Ha.)</h6> -->   
+                                                        <h6 class="">(NFA - MMV)Area (Ha.)</h6>
                                                          <input type="hidden" value="DiffNfMmv">                                                      
                                                     </div>
                                                     <div>
@@ -315,7 +316,7 @@
                                             <div class="media-body">
                                                 <div class="d-xl-flex d-block justify-content-between">
                                                     <div class="">
-                                                        <h6 class="">(NFA - MMVA) % Difference</h6>   
+                                                        <h6 class="">(NFA - MMV)Area % Difference</h6>   
                                                          <input type="hidden" value="DiffNfMmvPerc">                                                      
                                                     </div>
                                                     <div>
@@ -345,7 +346,7 @@
                                             <div class="media-body">
                                                 <div class="d-xl-flex d-block justify-content-between">
                                                     <div class="">
-                                                        <h6 class="">NFA - CMV (Ha.)</h6>   
+                                                        <h6 class="">(NFA - CMV)Area (Ha.)</h6>   
                                                          <input type="hidden" value="DiffCmvNfa">                                                      
                                                     </div>
                                                     <div>
@@ -359,7 +360,7 @@
                                             <div class="media-body">
                                                 <div class="d-xl-flex d-block justify-content-between">
                                                     <div class="">
-                                                        <h6 class="">(NFA - CMV) % Difference</h6>   
+                                                        <h6 class="">(NFA - CMV)Area % Difference</h6>   
                                                          <input type="hidden" value="DiffCmvNfaPerc">                                                      
                                                     </div>
                                                     <div>
@@ -389,7 +390,7 @@
                                             <div class="media-body">
                                                 <div class="d-xl-flex d-block justify-content-between">
                                                     <div class="">
-                                                        <h6 class="">NFA - JVA (Ha.)</h6>   
+                                                        <h6 class="">(NFA - JV)Area (Ha.)</h6>   
                                                          <input type="hidden" value="DiffNfaJv">                                                      
                                                     </div>
                                                     <div>
@@ -403,7 +404,7 @@
                                             <div class="media-body">
                                                 <div class="d-xl-flex d-block justify-content-between">
                                                     <div class="">
-                                                        <h6 class="">(NFA - JVA) % Difference</h6>   
+                                                        <h6 class="">(NFA - JV)Area % Difference</h6>   
                                                          <input type="hidden" value="DiffNfaJvPerc">                                                      
                                                     </div>
                                                     <div>
@@ -639,7 +640,7 @@
                                         
                                        
 
-                                        <div class="media  d-md-flex d-block text-sm-left text-center">                                            
+                                        <!-- <div class="media  d-md-flex d-block text-sm-left text-center">                                            
                                             <div class="media-body">
                                                 <div class="d-xl-flex d-block justify-content-between">
                                                     <div class="">
@@ -651,7 +652,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         
                                     </div>
@@ -696,7 +697,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="generateReport_click()">Save changes</button>
+        <button type="button" class="btn btn-primary" onclick="generateReport_click()">Generate</button>
       </div>
     </div>
   </div>

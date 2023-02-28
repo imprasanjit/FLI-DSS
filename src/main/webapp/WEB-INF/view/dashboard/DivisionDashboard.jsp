@@ -614,12 +614,12 @@ function getTargtAchv(){
           	$("#orscCert").text(result.orsacCertification);
           	$("#fsoCert").text(result.fsoCertification);        	
           	$("#reNotif").text(0);
-          //$("#reNotif").text(result.reNotification);
+            $("#reNotif").text(result.reNotification);
           	
           	$("#orscCertVal").text(result.orsacCertificationVal.toFixed(2));
           	$("#fsoCertVal").text(result.fsoCertificationVal.toFixed(2));         	
           	$("#reNotifVal").text(0.00);
-          //$("#reNotifVal").text(result.reNotificationVal.toFixed(2));
+            $("#reNotifVal").text(result.reNotificationVal.toFixed(2));
         },
         error: function(errormessage) {
         	$(".apploader-base").css("display", "none");

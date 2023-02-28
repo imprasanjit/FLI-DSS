@@ -8,11 +8,14 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +37,7 @@ import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.sparc.flidss.repository.common.DistrictDivisionLinkMasterRepository;
 import com.sparc.flidss.service.ProgressMonitoringService;
 import com.sparc.flidss.utility.ItextHeaderFooterPageEvent;
 import com.sparc.flidss.viewmodel.progressmonitoring.IFrjvcCertifiedpointDetails;
@@ -45,6 +49,9 @@ import com.sparc.flidss.viewmodel.reports.IFnForestLandSummary;
 public class forestlanddetailsreportController {
 	@Autowired
 	ProgressMonitoringService pms;
+	
+	@Autowired
+	DistrictDivisionLinkMasterRepository distDivLinkRepo;
 
 	public void generatePdf(List<IFnForestLandSummary> nfbDetails, String fields[], HttpServletRequest request) {
 		try {
@@ -373,5 +380,31 @@ public class forestlanddetailsreportController {
 				ex.printStackTrace();
 			}
 		}
+	}
+	
+	
+	 //for getting divData from session
+	public List<Integer> getDivIdsbyDistOrDiv(HttpSession session) {
+
+		Integer distId = session.getAttribute("distID") != null
+				? Integer.parseInt(session.getAttribute("distID").toString())
+				: 0;
+		Integer divId = session.getAttribute("divID") != null
+				? Integer.parseInt(session.getAttribute("divID").toString())
+				: 0;
+		List<Integer> dividsByDist = new ArrayList<Integer>();
+
+		if (distId != null && Integer.parseInt(distId.toString()) > 0) {
+			dividsByDist = distDivLinkRepo.findByDistId(distId).stream().map(m -> m.getDivisionMaster().getIntId())
+					.collect(Collectors.toList());
+			/*dividsByDiv = distDivLinkRepo.getDivisionMaster(divId).stream().map(m -> m.getDivisionMaster().getIntId())
+					.collect(Collectors.toList());*/
+		} else {
+			if (divId > 0) {
+				dividsByDist.add(divId);
+			}
+		}
+
+		return dividsByDist;
 	}
 }

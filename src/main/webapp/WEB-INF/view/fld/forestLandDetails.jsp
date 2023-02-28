@@ -57,7 +57,7 @@
 								<div class="col-md-2 mb-1" id="distDiv" style="display: none;">
 									<select class="form-control form-control-sm" id="drpDistrict">
 										<option value="">--Select District--</option>
-										<c:forEach items="${distList}" var="dList">
+										<c:forEach items="${fldDistList}" var="dList">
 											<%-- <c:if test="${dList.intId} ne '0'"> --%>
 											<option value="${dList.intId}">${dList.chrvDistrictNm}</option>
 											<%-- </c:if> --%>
@@ -68,7 +68,7 @@
 									<select class="form-control form-control-sm" id="drpDivision"
 										onchange="divListChange(this)">
 										<option value="">--Select Division--</option>
-										<c:forEach items="${divList}" var="diviList">
+										<c:forEach items="${fldDivList}" var="diviList">
 											<option value="${diviList.intId}">${diviList.chrvDivisionNm}</option>
 										</c:forEach>
 
@@ -537,7 +537,7 @@ function distwiseTehsilChange()
 
 /* On change of Division */
 function divListChange(e) {
-	
+	//alert("dfvg85")
     clearSelectValue();
     $('#divform').empty();
     if($(e).val() != '' && $(e).val() !=0)
@@ -979,7 +979,8 @@ function addRevForestPaggination(totalRecord, pageSize) {
     
 /* View NFB Details in modal popup*/
 function BindFBDetails(fid) {
-    $.ajax({
+	//alert("ij6")
+	$.ajax({
         url: '/partialFbWiseForestLandDetails',
         data: {
             'fid': fid

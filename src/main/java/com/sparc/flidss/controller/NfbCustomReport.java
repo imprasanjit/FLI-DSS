@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.PosixFileAttributes;
 import java.nio.file.attribute.PosixFilePermission;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -76,6 +77,8 @@ public class NfbCustomReport {
 			List<DivisionMaster> divList = service.GetDivisionList().stream()
 					.filter(f -> f.getIntId() > 0 && (!divids.isEmpty() ? divids.contains(f.getIntId()) : true))
 					.collect(Collectors.toList());
+			divList.sort((x,y)->x.getChrvDivisionNm().compareTo(y.getChrvDivisionNm()));
+			//divList.stream().sorted(Comparator.comparing(DivisionMaster::getChrvDivisionNm));
 			List<RangeMaster> rngList = service.GetRangeList();
 			//model.addAttribute("divList", divList.stream().filter(f -> f.getIntId() > 0).collect(Collectors.toList()));
 			model.addAttribute("divList", divList);
@@ -804,6 +807,8 @@ public class NfbCustomReport {
 			if (distId != null && Integer.parseInt(distId.toString()) > 0) {
 				dividsByDist = distDivLinkRepo.findByDistId(distId).stream().map(m -> m.getDivisionMaster().getIntId())
 						.collect(Collectors.toList());
+				/*dividsByDiv = distDivLinkRepo.getDivisionMaster(divId).stream().map(m -> m.getDivisionMaster().getIntId())
+						.collect(Collectors.toList());*/
 			} else {
 				if (divId > 0) {
 					dividsByDist.add(divId);

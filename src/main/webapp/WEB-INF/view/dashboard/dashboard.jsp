@@ -613,12 +613,12 @@ function getTargtAchv(){
           	
           	$("#orscCert").text(result.orsacCertification);
           	$("#fsoCert").text(result.fsoCertification);        	
-          	$("#reNotif").text(0);
+          	$("#reNotif").text(result.reNotification);
           //$("#reNotif").text(result.reNotification);
           	
           	$("#orscCertVal").text(result.orsacCertificationVal.toFixed(2));
           	$("#fsoCertVal").text(result.fsoCertificationVal.toFixed(2));         	
-          	$("#reNotifVal").text(0.00);
+          	$("#reNotifVal").text(result.reNotificationVal.toFixed(2));
           //$("#reNotifVal").text(result.reNotificationVal.toFixed(2));
         },
         error: function(errormessage) {
@@ -653,7 +653,7 @@ function getParentChildChart(callback){
         type: 'GET',
         dataType: "json",
         success: function(result) {
-        	console.log(result);
+        	//console.log(result);
         	$(".apploader-base").css("display", "none");
         	callback(result);	
         },
@@ -682,11 +682,11 @@ var i=0;
             drilldown: function(e){
             	//alert("56")
             	var chart = this;
-            	 //console.log(e.seriesOptions.id);
-            	 //console.log(e.seriesOptions.data);
-            	  //console.log(this.options.series[0].name);
-            	  //console.log(chart.series[0].options._levelNumber);
-            	  //console.log(e.point.drilldown);
+            	  console.log(e.seriesOptions.id);
+            	  console.log(e.seriesOptions.data);
+            	  console.log(this.options.series[0].name);
+            	  console.log(chart.series[0].options._levelNumber);
+            	  console.log(e.point.drilldown);
             	  if(chart.series[0].options._levelNumber===0)
            		  {
            		  chart.setTitle({text: 'Achievement of Geo Referencing Forest Land(ORSAC Certification)'}, {text: ''});

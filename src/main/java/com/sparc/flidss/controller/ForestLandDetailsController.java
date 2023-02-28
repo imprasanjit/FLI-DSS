@@ -84,6 +84,8 @@ public class ForestLandDetailsController {
 				if (distId != null && Integer.parseInt(distId.toString()) > 0) {
 					dividsByDist = distDivLinkRepo.findByDistId(distId).stream()
 							.map(m -> m.getDivisionMaster().getIntId()).collect(Collectors.toList());
+					/*dividsByDivid = distDivLinkRepo.getDivisionMaster(divId).stream()
+							.map(m -> m.getDivisionMaster().getIntId()).collect(Collectors.toList());*/
 				} else {
 					if (divId > 0) {
 						dividsByDist.add(divId);
@@ -95,26 +97,26 @@ public class ForestLandDetailsController {
 						.filter(f -> f.getSeqNo() <= 3).sorted(Comparator.comparing(ForestLandTypeMaster::getSeqNo))
 						.collect(Collectors.toList());
 
-				List<DistrictMaster> distList = utility.GetDistrictList().stream()
+				List<DistrictMaster> fldDistList = utility.GetDistrictList().stream()
 						.filter(f -> f.getIntId() == (distId > 0 ? distId : (divId > 0 ? -1 : f.getIntId())))
 						.collect(Collectors.toList());
-				distList.sort((p1, p2) -> p1.getChrvDistrictNm().compareTo(p2.getChrvDistrictNm()));
+				fldDistList.sort((p1, p2) -> p1.getChrvDistrictNm().compareTo(p2.getChrvDistrictNm()));
 
 //here we have done division id wise permission after login the user will get only division dropdown accordingly divid from session
-				List<DivisionMaster> divList= new ArrayList<DivisionMaster>();
+				List<DivisionMaster> fldDivList= new ArrayList<DivisionMaster>();
 				//for admin role
 				if(divId==0 && distId==0) {
-				 divList = utility.GetDivisionList().stream()
+					fldDivList = utility.GetDivisionList().stream()
 						.filter(f -> f.getIntId() > 0 && (!divids.isEmpty() ? divids.contains(f.getIntId()) : true)
 								&& f.getPhaseMaster().getIntPhase() == 1 || f.getPhaseMaster().getIntPhase()==2 
 										/* || f.getPhaseMaster().getIntPhase()==3 
 																		   || f.getPhaseMaster().getIntPhase()==4*/ )
 						.collect(Collectors.toList());
-				divList.sort((d1, d2) -> d1.getChrvDivisionNm().compareTo(d2.getChrvDivisionNm()));
+					fldDivList.sort((d1, d2) -> d1.getChrvDivisionNm().compareTo(d2.getChrvDivisionNm()));
 				}
 				//for others official role
 				else {
-					 divList = utility.GetDivisionList().stream()
+					fldDivList = utility.GetDivisionList().stream()
 							.filter(f -> f.getIntId() > 0 && (!divids.isEmpty() ? divids.contains(f.getIntId()) : true))
 							.collect(Collectors.toList());
 				}
@@ -123,8 +125,8 @@ public class ForestLandDetailsController {
 				List<RangeMaster> rngList = utility.GetRangeList();
 				List<TehsilMaster> tehsList = utility.GetTehsilList();
 				model.addAttribute("fLandType", fLandType);
-				model.addAttribute("distList", distList);
-				model.addAttribute("divList", divList);
+				model.addAttribute("fldDistList", fldDistList);
+				model.addAttribute("fldDivList", fldDivList);
 				model.addAttribute("rngList", rngList);
 				model.addAttribute("tehsList", tehsList);
 
@@ -483,7 +485,7 @@ public class ForestLandDetailsController {
 							.map(m -> m.getDivisionMaster().getIntId()).collect(Collectors.toList());
 					divIds.addAll(dividList);
 					distIds.add(distId);
-				} else if (roleId == 8) { //Division Level
+				} else if (roleId == 8 || roleId == 7) { //Division Level and tahsil level
 					Integer divId = Integer.parseInt(
 							session.getAttribute("divID") != null ? session.getAttribute("divID").toString() : "0");
 					divIds.add(divId);

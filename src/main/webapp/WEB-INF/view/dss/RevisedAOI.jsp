@@ -397,16 +397,24 @@ $(document).ready(function() {
 													</div>
 
 													<div class="row">
-														<div class="col-md-12 text-center" style="display: none"
+														<div class="col-md-12 text-center">
+															<span style="display: none"
 															id="poiDiv">
-															<button type="button" id="btnpoiAnalysis"
-																class="btn btn-sm btn-success">PoI Analysis</button>
+																<button type="button" id="btnpoiAnalysis"
+																	class="btn btn-sm btn-success">PoI Analysis</button>
+															</span>
+															<span style="display: none"
+																id="aoiDiv">
+																<button type="button" id="btnaoiAnalysis"
+																	class="btn btn-sm btn-success">AoI Analysis</button>
+															</span>
+															<span style="display: none"
+																id="kmlDiv">
+																<button type="button" id="btnaoiKML"
+																	class="btn btn-sm btn-warning"><i class="fa fa-download">&nbsp;</i> KML</button>
+															</span>
 														</div>
-														<div class="col-md-12 text-center" style="display: none"
-															id="aoiDiv">
-															<button type="button" id="btnaoiAnalysis"
-																class="btn btn-sm btn-success">AoI Analysis</button>
-														</div>
+														
 													</div>
 
 												</div>
@@ -778,10 +786,10 @@ $(document).ready(function() {
 										class="custom-control-input"> <label
 										class="custom-control-label" for="rdblank_basemap">Muted</label>
 								</div>
-							</div>
-
+							</div>							
 							<!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3834859.9797965377!2d82.19173433935192!3d20.176539522401498!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a226aece9af3bfd%3A0x133625caa9cea81f!2sOdisha!5e0!3m2!1sen!2sin!4v1564120416120!5m2!1sen!2sin" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe> -->
 						</div>
+						<img alt="Compass" src="/assets/img/compass.png" style="position:absolute;left:35px;top:0">
 					</div>
 				</div>
 			</div>
@@ -2398,10 +2406,10 @@ visible:false
  
  //OverLay
  var container = document.getElementById('popup');
- console.log(container);
+ //console.log(container);
  var content = document.getElementById('popup-content');
- console.log(content);
- console.log($("#popup-content").html());
+ //console.log(content);
+ //console.log($("#popup-content").html());
  var closer = document.getElementById('popup-closer');
  var overlay  = new ol.Overlay({
      element: container,
@@ -2693,14 +2701,14 @@ visible:false
 		 if ($("#radioLocation").is(":checked")) 
 		 { 
 			 $("#btnShowMap").click(function (event) {
-				 document.getElementById('poiDiv').style.display ='block';
+				 document.getElementById('poiDiv').style.display ='inline-block';
 				
 			 });
 		 }
 		 else if($("#radioArea").is(":checked")) 
 		 {
 			 document.getElementById('poiDiv').style.display ='none';
-			 document.getElementById('aoiDiv').style.display ='block';
+			 document.getElementById('aoiDiv').style.display ='inline-block';
 		 }
 	
 		
@@ -2722,12 +2730,14 @@ visible:false
 			        //alert("poi");
 			        document.getElementById('aoiDiv').style.display ='none';
 					document.getElementById('poiDiv').style.display ='none';
+					document.getElementById('kmlDiv').style.display ='none';
+
 					$('#latitude').val('');
 					$('#longitude').val('');
 					
 			        $("#btnShowMap").click(function (event) {
 			        	 document.getElementById('aoiDiv').style.display ='none';
-						 document.getElementById('poiDiv').style.display ='block';
+						 document.getElementById('poiDiv').style.display ='inline-block';
 					 });
 			    }
 			    else if (this.value == 'area') 
@@ -2735,7 +2745,7 @@ visible:false
 			         //alert("AoI");
 			         document.getElementById('poiDiv').style.display ='none';
 					 document.getElementById('aoiDiv').style.display ='none';
-				
+					 document.getElementById('kmlDiv').style.display ='none';
 			    }
 			});
 		 
@@ -2748,7 +2758,7 @@ visible:false
 				// var extent = polygonsource.getExtent();      
 				 map.getView().fit(polygonsource.getExtent(), { duration: 2000 });            
 				//map.getView().fit(extent, map.getSize());  
-				 document.getElementById('aoiDiv').style.display ='block';
+				 document.getElementById('aoiDiv').style.display ='inline-block';
 				 }
 			 else{
 				 alert("Draw/Import a polygon to view on map");
@@ -2762,6 +2772,7 @@ visible:false
 			 document.getElementById('poiDiv').style.display ='none';
 			 document.getElementById('queryBtn').style.display ='none';
 			 document.getElementById('queryContent').style.display ='none';
+			 document.getElementById('kmlDiv').style.display ='none';
 			 vectorSource1.clear();
 			 removeAllLayers();
 		 });
@@ -2802,6 +2813,7 @@ visible:false
 			 document.getElementById('aoiDiv').style.display ='none';
 			 document.getElementById('queryBtn').style.display ='none';
 			 document.getElementById('queryContent').style.display ='none';
+			 document.getElementById('kmlDiv').style.display ='none';
 			 map.removeLayer(polygonDraw);
 			 map.removeInteraction(polygonDraw);
 			 polygonsource.clear();
@@ -2814,16 +2826,29 @@ visible:false
 			 $("#layerTab").hide();
 			 PoiAnalysis();
 			 getPOIGeom();
-			 document.getElementById('poiSummaryDiv').style.display ='block';
+			 document.getElementById('poiSummaryDiv').style.display ='inline-block';
 			 //document.getElementById('queryBtn').style.display ='block';
 			 document.getElementById('aoiSummaryDiv').style.display ='none';
 			 document.getElementById('aoiAnalysisDiv').style.display ='none';
+			 document.getElementById('kmlDiv').style.display ='inline-block';//here i have set display to block/to show after clicking the poi analysis button
 			 //$("#queryBtn" ).trigger( "click");
 		 });
 		 
+		 //KML download of Area and Point
+			$("#btnaoiKML").click(function (event) {
+			if ($("#radioLocation").is(":checked")){
+				//alert("loc")
+				downloadPOIkml();
+			}			 
+			else if ($("#radioArea").is(":checked")) {
+				//alert("area")				
+				downloadAOIkml();
+			}
+			 });
+		
 		 //aoi Analysis Button click
 		 $("#btnaoiAnalysis").click(function (event) {
-			 $(".apploader-base").css("display", "block");
+			 $(".apploader-base").css("display", "inline-block");
 			 map.getView().fit(polygonsource.getExtent(), { duration: 2000 }); 
 			 setTimeout(function(){ 
 				  removeAllLayers();
@@ -2835,9 +2860,11 @@ visible:false
 				 }
 				 getAOIGeom();
 				 
-				 document.getElementById('aoiSummaryDiv').style.display ='block';
+				 document.getElementById('aoiSummaryDiv').style.display ='inline-block';
 				 document.getElementById('poiSummaryDiv').style.display ='none';
 				 document.getElementById('aoiAnalysisDiv').style.display ='none';
+				 document.getElementById('kmlDiv').style.display ='inline-block';//here i have set display to block/to show after clicking the AOI analysis button
+
 				 getAOIAnalysis();
 			 }, 100);
 			 
@@ -2969,7 +2996,7 @@ visible:false
 							});
 
 							map.addLayer(divlayer);
-							console.log(data[i].text);
+							//console.log(data[i].text);
 						}
 					},
 					error: function(errormessage) {
@@ -3119,7 +3146,7 @@ visible:false
 										if (rng_layer1.length > 0) {
 											rng_layer1.forEach(function(item) {
 												map.addLayer(item);
-												console.log(item);
+												//console.log(item);
 												item.setVisible(true);
 											});
 
@@ -4234,5 +4261,5 @@ visible:false
 	});
 	</script>
 <script src="/assets/js/apps/aoiAnalysis.js"></script>
-
+<script src="/assets/js/tokml.js"></script>
 <%@ include file="../shared/footer.jsp"%>

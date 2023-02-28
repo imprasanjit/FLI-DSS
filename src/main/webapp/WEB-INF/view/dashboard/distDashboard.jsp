@@ -616,12 +616,12 @@ function getTargtAchv(){
           	$("#orscCert").text(result.orsacCertification);
           	$("#fsoCert").text(result.fsoCertification);        	
           	$("#reNotif").text(0);
-          //$("#reNotif").text(result.reNotification);
+            $("#reNotif").text(result.reNotification);
           	
           	$("#orscCertVal").text(result.orsacCertificationVal.toFixed(2));
           	$("#fsoCertVal").text(result.fsoCertificationVal.toFixed(2));         	
           	$("#reNotifVal").text(0.00);
-          //$("#reNotifVal").text(result.reNotificationVal.toFixed(2));
+            $("#reNotifVal").text(result.reNotificationVal.toFixed(2));
         },
         error: function(errormessage) {
         	$(".apploader-base").css("display", "none");
@@ -655,7 +655,7 @@ function getParentChildChart(callback){
         type: 'GET',
         dataType: "json",
         success: function(result) {
-        	console.log(result);
+        	//console.log(result);
         	$(".apploader-base").css("display", "none");
         	callback(result);	
         },
@@ -681,6 +681,7 @@ var i=0;
         type: "column",
         events:{
             drilldown: function(e){
+            	//alert("oljki")
             	var chart = this;
             	   if(chart.series[0].options._levelNumber===0)
            		  {
@@ -690,9 +691,10 @@ var i=0;
            		  }          
             }  ,
             drillup: function(e){
+            	//alert("302")
                 var chart = this;
                 setTimeout(function () {
-	               	if(chart.series[0].options._levelNumber == 1)
+	               	if(chart.series[0].options._levelNumber === 0)
 	             	{	               	
 	               		    chart.setTitle({text: 'Achievement of Geo Referencing Forest Land(ORSAC Certification)'}, {text: ''});
 		               		chart.setSubtitle({text: ' Division wise Forest Land Area'}, {text: ''});

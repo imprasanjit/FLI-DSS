@@ -104,8 +104,8 @@ public class HomeController {
 		else if (roleId == 12) {
 			redirectUrl.append("redirect:/Dashboard");
 		}
-		// Division Level
-		else if (roleId == 8) {
+		// Division Level & Tahasil level
+		else if (roleId == 8 || roleId == 7) {
 			redirectUrl.append("redirect:/DivDashboard");
 		}
 		//Range level

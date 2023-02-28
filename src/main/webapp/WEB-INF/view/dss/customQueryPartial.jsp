@@ -179,7 +179,23 @@
 						<input type="hidden" value="0" id="hdnTotal" />
 						<input type="hidden" value="0" id="hdnCurrent" />
 					</c:when>
-					<c:otherwise>
+					
+					<c:when test="${landType==2}">
+					 
+					<div class="row" id="customData">
+					<div class="col-md-4"></div>
+                           <div class="col-md-8 text-right">
+                              		<span class="badge outline-badge-success badge-pill">
+											<span>Land Type : </span><strong id='SpFltype'>NA</strong>	
+									</span>
+	                                <span class="badge outline-badge-success badge-pill">
+											<span>Division : </span><strong id='Spdiv'>NA</strong>	
+									</span>
+	                                <span class="badge outline-badge-success badge-pill">
+											<span>Range : </span><strong id='Sprange'>NA</strong>	
+									</span>								
+                             </div>
+                     </div>
 						<c:set var="totalRecord" value="${totalRev}" />
 						<c:set var="currentRecord" value="${fn:length(revenueList)}" />
 						<table id="tblDLCRev" class="table table-bordered"
@@ -351,7 +367,195 @@
 
 						<input type="hidden" value=${currentRecord } id="hdnCurrent" />
 						<input type="hidden" value=${totalRecord } id="hdnTotal" />
-					</c:otherwise>
+					</c:when>
+					
+					<c:when test="${landType==3}">					 
+					<div class="row" id="customData">
+					<div class="col-md-4"></div>
+                           <div class="col-md-8 text-right">
+                              		<span class="badge outline-badge-success badge-pill">
+											<span>Land Type : </span><strong id='SpFltype'>NA</strong>	
+									</span>
+	                                <span class="badge outline-badge-success badge-pill">
+											<span>Division : </span><strong id='Spdiv'>NA</strong>	
+									</span>
+	                                <span class="badge outline-badge-success badge-pill">
+											<span>Range : </span><strong id='Sprange'>NA</strong>	
+									</span>								
+                             </div>
+                     </div>
+                     <c:set var="totalRecord" value="${totalRev}" />
+						<c:set var="currentRecord" value="${fn:length(revenueList)}" />
+						<table id="tblDLCRev" class="table table-bordered"
+							style="width: 100%">
+							<thead>
+								<tr>
+									<th>Sl No</th>
+
+									<c:if test='${selectedFields.contains("district")}'>
+										<th>District</th>
+									</c:if>
+									<c:if test='${selectedFields.contains("division")}'>
+										<th>Division</th>
+									</c:if>
+
+									<c:if test='${selectedFields.contains("tahasil")}'>
+										<th>Tahasil</th>
+									</c:if>
+
+									<c:if test='${selectedFields.contains("range")}'>
+										<th>Range</th>
+									</c:if>
+
+									<c:if test='${selectedFields.contains("ric")}'>
+										<th>RI Circle</th>
+									</c:if>
+
+									<th>Village Name</th>
+
+									<c:if test='${selectedFields.contains("publ_year")}'>
+										<th>Publication Year</th>
+									</c:if>
+
+									<c:if test='${selectedFields.contains("khata_no")}'>
+										<th>Khata No</th>
+									</c:if>
+
+									<c:if test='${selectedFields.contains("plot_no")}'>
+										<th>ROR Plot No</th>
+									</c:if>
+
+									<c:if test='${selectedFields.contains("area_ac")}'>
+										<th>ROR Area (Acre)</th>
+									</c:if>
+
+									<c:if test='${selectedFields.contains("ps")}'>
+										<th>PS</th>
+									</c:if>
+
+									<c:if test='${selectedFields.contains("thanaNo")}'>
+										<th>Thana No</th>
+									</c:if>
+
+									<c:if test='${selectedFields.contains("kissam")}'>
+										<th>Kissam</th>
+									</c:if>
+
+									<c:if test='${selectedFields.contains("rorClass")}'>
+										<th>ROR Clas</th>
+									</c:if>
+
+									<c:if test='${selectedFields.contains("landClass")}'>
+										<th>Land Class</th>
+									</c:if>
+
+									<c:if test='${selectedFields.contains("dlc")}'>
+										<th>Is DLC Forest?</th>
+									</c:if>
+									
+									<th>Action</th>
+
+									<!-- <th>Action</th> -->
+								</tr>
+							</thead>
+
+
+							<tbody>
+								<c:forEach items="${revenueList}" var="item" varStatus="Counter">
+									<tr>
+
+										<td class="text-center">${Counter.count}</td>
+
+										<c:if test='${selectedFields.contains("district")}'>
+											<td class="text-left">${item.chrvDistrictNm}</td>
+										</c:if>
+
+										<c:if test='${selectedFields.contains("division")}'>
+											<td class="text-left">${item.chrvDivisionNm}</td>
+										</c:if>
+
+										<c:if test='${selectedFields.contains("tahasil")}'>
+											<td>${item.getChrvTahasilNm()}</td>
+										</c:if>
+
+										<c:if test='${selectedFields.contains("range")}'>
+											<td>${item.getChrvRangeNm()}</td>
+										</c:if>
+
+										<c:if test='${selectedFields.contains("ric")}'>
+											<td class="text-left">${item.ric}</td>
+										</c:if>
+
+										<td class="text-left">${item.getVillage()}</td>
+
+
+										<c:if test='${selectedFields.contains("publ_year")}'>
+											<td class="text-right">${item.getPublYear() }</td>
+										</c:if>
+
+										<c:if test='${selectedFields.contains("khata_no")}'>
+											<td class="text-right">${item.getKhataNo()}</td>
+										</c:if>
+
+										<c:if test='${selectedFields.contains("plot_no")}'>
+											<td class="text-right">${item.getPlotNo()}</td>
+										</c:if>
+
+										<c:if test='${selectedFields.contains("area_ac")}'>
+											<td class="text-right">${item.getAreaAc()}</td>
+										</c:if>
+
+										<c:if test='${selectedFields.contains("ps")}'>
+											<td class="text-left">${item.ps}</td>
+										</c:if>
+
+										<c:if test='${selectedFields.contains("thanaNo")}'>
+											<td class="text-right">${item.thanaNo}</td>
+										</c:if>
+
+										<c:if test='${selectedFields.contains("kissam")}'>
+											<td class="text-left">${item.kissam}</td>
+										</c:if>
+
+										<c:if test='${selectedFields.contains("rorClass")}'>
+											<td class="text-left">${item.rorClass}</td>
+										</c:if>
+
+										<c:if test='${selectedFields.contains("landClass")}'>
+											<td class="text-left">${item.landClass}</td>
+										</c:if>
+
+										<c:if test='${selectedFields.contains("dlc")}'>
+											<td class="text-right">${item.dlc==null?"N":item.dlc}</td>
+										</c:if>
+										
+										<td class='text-center'>
+										  <a href="/FLD/forestLandDetails?villcode=${item.villCode}&plotno=${item.plotNo}" target="_balnk" class="btn btn-sm btn-info waves-effect waves-light"><i aria-hidden="true"
+												class="fa fa-map"></i></a>
+												
+												<!-- <div class='btn-group' role='group'>
+                         <button id='btndefault' type='button' class='btn btn-sm btn-info waves-effect waves-light dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><i class='fa fa-map'></i></button>
+                         <div class='dropdown-menu' aria-labelledby='btndefault'>
+                         <a href='/FLD/forestLandDetails?villcode=${item.villCode}&plotno=${item.plotNo}' target='_balnk' class='dropdown-item'><i class=''>&nbsp;</i>New Tab</a>
+                         <a href='/FLD/forestLandDetails?villcode=${item.villCode}&plotno=${item.plotNo}' class='dropdown-item'><i class=''>&nbsp;</i>This Tab</a>
+                         </div></div> -->
+									
+										</td>
+										<%-- <td><button type="button" class="btn btn-sm btn-success bs-tooltip"
+													onclick="BindRfDetails('${item.getVillCode()}','${item.getPlotNo() }') "><i
+														aria-hidden="true" class="fa fa-eye" id="btneye"></i></button>
+												<button type="button" class="btn btn-sm btn-info bs-tooltip"
+													onclick="revMapView('${item.getVillage()}','${item.getVillCode()}','${item.getPlotNo()}') "><i
+														aria-hidden="true" class="fa fa-map"></i></button>
+											</td> --%>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+
+						<input type="hidden" value=${currentRecord } id="hdnCurrent" />
+						<input type="hidden" value=${totalRecord } id="hdnTotal" />
+					</c:when>
 				</c:choose>
 
 			</div>
