@@ -120,6 +120,6 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalName>ROOT</finalName>
+		<finalName>flidss</finalName>
 	</build>
 </project>

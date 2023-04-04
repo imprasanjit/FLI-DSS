@@ -1148,6 +1148,7 @@
 									class="btn btn-sm btn-warning">
 									<i class="fa fa-download">&nbsp;</i>Map</i>
 								</button>
+								
 								<!-- <a id="export-pdf" class="btn" download="map.pdf" data-margin="10" target="_new" onclick="printControl.print({ imageType: 'image/jpeg', pdf:true })">Export PDF</a> -->
 								<!-- <a href="javascript:void(0)" data-toggle="collapse" title="Toggle fullscreen" class="bs-tooltip" id="mapFullscreen" onclick="openFullscreen();"><img src="/assets/img/icon-zoom-to-extent.png"></span></a>
 											<a href="#" class="bs-tooltip" title="Zoom in" id="ZoomIN"><img src="/assets/img/icon-zoom-in.png"></span></a> 
@@ -1378,15 +1379,12 @@
 									var arr = [];
 									//var nfbList=${data};
 									var k = 0;
-									result
-											.forEach(function(data) {
+									result.forEach(function(data) {
 												k = k + 1;
 												var jsonData = {};
-												jsonData["geometry"] = JSON
-														.parse(data.geom);
+												jsonData["geometry"] = JSON.parse(data.geom);
 												jsonData["type"] = "Feature";
-												let cmvProp = JSON.parse(JSON
-														.stringify(data))
+												let cmvProp = JSON.parse(JSON.stringify(data))
 												delete cmvProp['geom'];
 												jsonData["properties"] = cmvProp;
 												arr.push(jsonData);
@@ -1407,28 +1405,11 @@
 												
 												$(".tbody").html(layerinfo); */
 
-												dtForest.row
-														.add([
-																i++,
-																"Notified Forest",
-																data.range_name,
-																data.fb_name
-																		+ "&nbsp;<sup class='badge badge-pills badge-info badge-map'>"
-																		+ data.colortag
-																				.toString()
-																				.replace(
-																						1,
-																						'')
-																		+ "</sup>",
+												dtForest.row.add([i++,"Notified Forest",data.range_name,data.fb_name
+																		+ "&nbsp;<sup class='badge badge-pills badge-info badge-map'>"+ data.colortag.toString().replace(1,'')+ "</sup>",
 																data.fb_type,
-																parseFloat(
-																		data.area_ha)
-																		.toFixed(
-																				2),
-																parseFloat(
-																		data.area_ha * 2.47105)
-																		.toFixed(
-																				2),
+																parseFloat(data.area_ha).toFixed(2),
+																parseFloat(data.area_ha * 2.47105).toFixed(2),
 																"<button type='button' class='btn btn-sm btn-success waves-effect waves-light mr-1'  onclick='BindFBDetails("
 																		+ data.fb_id
 																		+ ")'><i aria-hidden='true' class='fa fa-eye' id='btneye' ></i></button>"
@@ -1974,7 +1955,7 @@
 																			if (kp == result.length) {
 																				var s = sdata.length;
 																				$.each(sdata,function(key,item) {
-																									console.log(item['properties']['dlc']);
+																									//console.log(item['properties']['dlc']);
 																									let village_code = item['properties']['vill_code'];
 																									tmp = [
 																											sl++,
@@ -2765,7 +2746,7 @@
 								source : vectorSource1,
 								style : Highlightfeature_style
 
-							});
+							});+
 
 							$("#btnMapView").click();
 							map.addLayer(feature);
@@ -4529,7 +4510,7 @@
 	map.addControl(printControl);
 
 	/* On print > save image file */
-	printControl.on('printing', function(e) {
+	 printControl.on('printing', function(e) {
 		$('body').css('opacity', .5);
 	});
 	printControl.on([ 'print', 'error' ], function(e) {

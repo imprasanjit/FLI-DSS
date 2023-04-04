@@ -113,7 +113,7 @@
 								
 								
 						    <div class="col-md-2" style="margin-top:27px">
-							  <button type="button" class="btn btn-link px-3"  data-toggle="modal" data-target="#customQueryModal">Advance Filter</button>
+							  <button type="button" class="btn btn-success btn-md"  data-toggle="modal" data-target="#customQueryModal">Advance Filter</button>
 							</div>
 							
 							</div>

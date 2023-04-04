@@ -94,6 +94,20 @@ public class DashboardController {
 			//var nfbAll = nfbrepo.getAllData();
 			var nfbAll = nfbrepo.findAll();
 			var divAll = divRepo.findAll();
+			
+			/*List<DivisionMaster> divAll=null;
+			
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method 
+					
+					 divRepo.findAll();
+				}
+			}).start();
+			
+			var nfbAll = nfbrepo.findAll();*/
 
 			Integer OrsacNfbAchv = (int) nfbAll.stream()
 					.filter(f -> phase.contains(f.getDivisionMaster().getPhaseMaster().getIntPhase())

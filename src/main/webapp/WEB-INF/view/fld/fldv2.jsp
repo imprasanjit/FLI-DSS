@@ -37,9 +37,6 @@
 						<div class="table-responsive">
 						
 							<table id="dtCircle" class="table table-sm table-bordered table-condensed">
-					
-							 
-					
 								<thead>
 									<tr>
 										<th width="7%">Sl. No.</th>
@@ -701,21 +698,28 @@ function getFbWiseNfbArea(divid){
         	
         		var i=1;
                 $.each(data, function(a, b) {
-
+					var cmv="/projectDocs/download/cmv/"+b.div_id+"/"+b.chrv_range_cd+"/"+b.chrv_range_cd+"-"+b.int_id+"-CMV.pdf";
+					var mmv="/projectDocs/download/mmv/"+b.div_id+"/"+b.chrv_range_cd+"/"+b.chrv_range_cd+"-"+b.int_id+"-MMV.pdf";
+					var frjvc="/projectDocs/download/frjvc/"+b.div_id+"/"+b.chrv_range_cd+"/"+b.chrv_range_cd+"-"+b.int_id+"-JVR.pdf";
+					var FSO="/projectDocs/download/fsoCertified/"+b.div_id+"/"+b.chrv_range_cd+"/"+b.chrv_range_cd+"_"+b.int_id+"_FSO.pdf";
+					var reNotification="/projectDocs/download/reNotification/"+b.div_id+"/"+b.chrv_range_cd+"/"+b.chrv_range_cd+"_"+b.int_id+"_RN.pdf";
+					
                 	 dtForest.row.add([i++,b.chrv_range_nm,b.nfb_name,b.nfb_type,b.notf_no,(b.nfa_ha*0.01).toFixed(2),(b.dgpsf_ha*0.01).toFixed(2), 
                 		 "<div class='btn-group' role='group'>"+
                          "<button id='btndefault' type='button' class='btn btn-sm btn-success dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><i class='fa fa-eye'></i></button>"+
                          "<div class='dropdown-menu' aria-labelledby='btndefault'>"+
-						 "<a href='/FLD/forestLandDetails?fbid="+b.int_id+"' target='_balnk' class='dropdown-item'><i class='fa fa-map-marker'></i> View in Map</a>"+	
-                         "<a href='/projectDocs/download/frjvc/"+b.div_id+"/"+b.chrv_range_cd+"/"+b.chrv_range_cd+"-"+b.int_id+"-JVR.pdf' target='_balnk' class='dropdown-item'><i class='fa fa-file-pdf-o' style='color:red'>&nbsp;</i>FRJVC Report</a>"+
-                         "<a href='/projectDocs/download/fsoCertified/"+b.div_id+"/"+b.chrv_range_cd+"/"+b.chrv_range_cd+"_"+b.int_id+"_FSO.pdf' class='dropdown-item' target='_blank'><i class='fa fa-file-pdf-o' style='color:red'>&nbsp;</i>FSO Certified Map</a>"+
+						 "<a href='/FLD/forestLandDetails?fbid="+b.int_id+"' target='_balnk' class='dropdown-item'><i class='fa fa-map-marker'></i> View in Map</a>"+
+						 "<a onclick='fileOpen(\""+cmv+"\")' target='_balnk' class='dropdown-item'><i class='fa fa-file-pdf-o' style='color:red'>&nbsp;</i>CMV Report</a>"+
+						 "<a onclick='fileOpen(\""+mmv+"\")' target='_balnk' class='dropdown-item'><i class='fa fa-file-pdf-o' style='color:red'>&nbsp;</i>MMV Report</a>"+
+                         "<a onclick='fileOpen(\""+frjvc+"\")' target='_balnk' class='dropdown-item'><i class='fa fa-file-pdf-o' style='color:red'>&nbsp;</i>FRJVC Report</a>"+
+                         "<a onclick='fileOpen(\""+FSO+"\")' target='_blank' class='dropdown-item'><i class='fa fa-file-pdf-o' style='color:red'>&nbsp;</i>FSO Certified Map</a>"+
                          //"<a href='javascript:void(0);' class='dropdown-item'><i class='fa fa-file-pdf-o'>&nbsp;</i>Boundary Coordinates</a>"+
-                         "<a href='/projectDocs/download/reNotification/"+b.div_id+"/"+b.chrv_range_cd+"/"+b.chrv_range_cd+"_"+b.int_id+"_RN.pdf' class='dropdown-item' target='_blank'><i class='fa fa-file-pdf-o' style='color:red'>&nbsp;</i>Re-Notification</a>"+
+                         "<a onclick='fileOpen(\""+reNotification+"\")' class='dropdown-item' target='_blank'><i class='fa fa-file-pdf-o' style='color:red'>&nbsp;</i>Re-Notification</a>"+
                          "</div></div>"
                      ]); 
                 	 
                 	 
-                });
+                });	
                 dtForest.draw(false);
                 
                 
@@ -805,14 +809,15 @@ function getDlcRevTehwiseArea(divid){
                 	 revForestArea+=b.rev_area*0.00404686;
                 	 DlcForest+=b.dlc_area*0.00404686;
 					 Common+=b.common_area*0.00404686;
-
+					 var DLC="/projectDocs/download/revDLC/"+b.int_fk_district+"/"+b.int_fk_tehsil+"/"+b.int_fk_district+"_"+b.int_fk_tehsil+"_DLC.pdf";
+					 var ROR="/projectDocs/download/revDLC/"+b.int_fk_district+"/"+b.int_fk_tehsil+"/"+b.int_fk_district+"_"+b.int_fk_tehsil+"_ROR.pdf"
                 	 dtForest.row.add([i++,"<a href='#' onclick='tblDlcRevLnkTahsil_Click(this,"+b.int_fk_tehsil+");' class='text-primary'><u>"+b.chrv_tahasil_nm+"</u></a>" 
                 		 , (b.dlc_area*0.00404686+b.common_area*0.00404686).toFixed(2),(b.rev_area*0.00404686).toFixed(2), (b.dlc_area*0.00404686+b.common_area*0.00404686+b.rev_area*0.00404686).toFixed(2), (b.common_area*0.00404686).toFixed(2),
                 		 "<div class='btn-group' role='group'>"+
                          "<button id='btndefault' type='button' class='btn btn-sm btn-success dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><i class='fa fa-eye'></i></button>"+
                          "<div class='dropdown-menu' aria-labelledby='btndefault'>"+
-                         "<a href='/projectDocs/download/revDLC/"+b.int_fk_district+"/"+b.int_fk_tehsil+"/"+b.int_fk_district+"_"+b.int_fk_tehsil+"_DLC.pdf' class='dropdown-item' target='_blank'><i class='fa fa-file-pdf-o'>&nbsp;</i>DLC</a>"+
-                         "<a href='/projectDocs/download/revDLC/"+b.int_fk_district+"/"+b.int_fk_tehsil+"/"+b.int_fk_district+"_"+b.int_fk_tehsil+"_ROR.pdf' class='dropdown-item' target='_blank'><i class='fa fa-file-pdf-o'>&nbsp;</i>Rev.</a>"+
+                         "<a onclick='fileOpen(\""+DLC+"\")' class='dropdown-item' target='_blank'><i class='fa fa-file-pdf-o'>&nbsp;</i>DLC</a>"+
+                         "<a onclick='fileOpen(\""+ROR+"\")' class='dropdown-item' target='_blank'><i class='fa fa-file-pdf-o'>&nbsp;</i>Rev.</a>"+
                          "</div></div>"
                      ]);  
                 });
@@ -829,6 +834,27 @@ function getDlcRevTehwiseArea(divid){
         	console.log(errormessage.responseText);
         }
     });
+}
+
+function fileOpen(e) {
+	//alert(e)
+	//var baseURL="https://odishaforestgeodss.in";
+	var baseURL="http://localhost:8080";
+	$.ajax({
+	    url:baseURL+ e,
+	    type:'HEAD',
+	    error: function()
+	    {	
+	        //alert("file not avilable");
+	        costumeNotification("File not Available");
+	        return false;
+	    },
+	    success: function()
+	    {
+	    	 //window.location.href=baseURL+ e;
+	    	window.open(baseURL+ e, '_blank');
+	    }
+	});
 }
 
 
@@ -1063,7 +1089,7 @@ $('#dtCircle').DataTable( {
     },
     "stripeClasses": [],
     "lengthMenu": [5, 10, 20, 50],
-    "pageLength": 50 
+    "pageLength": 10 
 } );
 
 //Adding Date
